@@ -8,7 +8,19 @@ Jitsi-Hammer is a program that connects to a Jitsi-Meet conference,
 
 Note that the hammer requires Java 1.8 because of a dependency (see pom.xml for details).
 
-If you want to stream one of the Pcaps in the resources/ directory, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
+The project includes some sample video/audio files. These Pcaps are available in the resources/ directory. These are large files and in order to download them correctly, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
+
+##How to install
+1. Install git-lfs (copying the test audio/video files provided here https://github.com/jitsi/jitsi-hammer/tree/master/resources with git or manually will result in corrupted input files that cannot be used with hammer). Git-lfs will take care of getting the right input files.
+1. Before running the ./jitsi-hammer.sh script run mvn compile exec:java once. This will of course fail, but the effect will be that maven will be able to download the needed plugins/dependencies before the ./jitsi-hammer.sh script modifies the keyStore and trustStore (which will break maven)
+   1. Setup a working jitsi server-side
+4)      Connect with browser to jitsi server, open a “room” with some name
+5)      Run ./jitsi-hammer.sh script with a command similar to : ./jitsi-hammer.sh -u https://MY_SERVER_IP/http-bind/ -room MY_ROOM_NAME -length 120 -audiortpdump ./resources/badger-audio.rtpdump -videortpdump ./resources/badger-video.rtpdump –summarystats
+6)      ignore various warnings about corrupted .pom files, registered java.lang.NoClassDefFoundError: Could not initialize class org.jitsi.impl.neomedia.codec.FFmpeg, and so on… It seems like these are not relevant (or maybe I am wrong?).
+7)      Wait a little bit
+8)      The hammer participant should show-up in a room and the sample sound file should begin playing in the browser (however the video – at least in my case - appears only in the participant icon – not full screen)
+9)      After specified amount of time (-length 120 above) the hammer will try to stop (Stopping Jitsi-Hammer... in terminal). However in my case it never actually stops – and I need to forcefully kill the process with kill -9 processID
+
 
 ## How to use
 You can run the program by using the **jitsi-hammer.sh** script:
