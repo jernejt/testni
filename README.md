@@ -8,16 +8,16 @@ Jitsi-Hammer is a program that connects to a Jitsi-Meet conference,
 
 Note that the hammer requires Java 1.8 because of a dependency (see pom.xml for details).
 
-The project includes some sample video/audio files. These Pcaps are available in the resources/ directory. The files are big in size and in order to download them correctly, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
+The project includes some sample video/audio files. These Pcaps are available in the resources/ directory. The files are big and in order to download them correctly, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
 
 ##How to install
 1. If you want to use sample input video/audio files then install git-lfs first (git or manual download will not work).
 1. Setup jitsi-meet server-side components.
 1. Using a browser open the jitsi-meet app and create a “room”.
 1. When running the jitsi-hammer.sh script for the first time you will most likely get a Maven dependency issue. Run **mvn compile exec:java** before starting the script (this will fail but will fetch the needed dependencies).
-1. Run hammer script with a command similar to : ./jitsi-hammer.sh -u https://MY_JITSI_WEB_SERVER_IP/http-bind/ -room MY_ROOM_NAME -length 120 -audiortpdump ./resources/badger-audio.rtpdump -videortpdump ./resources/badger-video.rtpdump –summarystats
+1. Run hammer script with a command similar to **./jitsi-hammer.sh -u https://MY_JITSI_WEB_SERVER_IP/http-bind/ -room MY_ROOM_NAME -length 120 -audiortpdump ./resources/badger-audio.rtpdump -videortpdump ./resources/badger-video.rtpdump –summarystats**
 1. Most likely there will be WARNINGS about corrupted .pom files, org.jitsi.impl.neomedia.codec.FFmpeg problems etc. Ignore them - the hammer should work anyway. 
-1. Be patient - it takes some time for the hammer to start sending vidoe/audio. The hammer participants should show-up in a room created with browser, and the sample audio/video file should begin playing. The video will not appear full-screen (only in the icons) which is normal behavior. 
+1. Be patient - it takes some time for the hammer to start sending vidoe/audio. The hammer participants should show-up in a browser-created room, and the sample audio/video file should begin playing. The video will not appear full-screen (only in the icons) which is normal behavior. 
 1. After the specified amount of time (-length argument) the hammer will try to exit, however it may be that you will have to kill the processes created forcefully.
 
 
