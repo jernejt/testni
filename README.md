@@ -8,18 +8,17 @@ Jitsi-Hammer is a program that connects to a Jitsi-Meet conference,
 
 Note that the hammer requires Java 1.8 because of a dependency (see pom.xml for details).
 
-The project includes some sample video/audio files. These Pcaps are available in the resources/ directory. These are large files and in order to download them correctly, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
+The project includes some sample video/audio files. These Pcaps are available in the resources/ directory. The files are big in size and in order to download them correctly, you're going to need Git LFS support. You can download it from [here](https://git-lfs.github.com/).
 
 ##How to install
-1. Install git-lfs (copying the test audio/video files provided here https://github.com/jitsi/jitsi-hammer/tree/master/resources with git or manually will result in corrupted input files that cannot be used with hammer). Git-lfs will take care of getting the right input files.
-1. Before running the ./jitsi-hammer.sh script run mvn compile exec:java once. This will of course fail, but the effect will be that maven will be able to download the needed plugins/dependencies before the ./jitsi-hammer.sh script modifies the keyStore and trustStore (which will break maven)
-   1. Setup a working jitsi server-side
-4)      Connect with browser to jitsi server, open a “room” with some name
-5)      Run ./jitsi-hammer.sh script with a command similar to : ./jitsi-hammer.sh -u https://MY_SERVER_IP/http-bind/ -room MY_ROOM_NAME -length 120 -audiortpdump ./resources/badger-audio.rtpdump -videortpdump ./resources/badger-video.rtpdump –summarystats
-6)      ignore various warnings about corrupted .pom files, registered java.lang.NoClassDefFoundError: Could not initialize class org.jitsi.impl.neomedia.codec.FFmpeg, and so on… It seems like these are not relevant (or maybe I am wrong?).
-7)      Wait a little bit
-8)      The hammer participant should show-up in a room and the sample sound file should begin playing in the browser (however the video – at least in my case - appears only in the participant icon – not full screen)
-9)      After specified amount of time (-length 120 above) the hammer will try to stop (Stopping Jitsi-Hammer... in terminal). However in my case it never actually stops – and I need to forcefully kill the process with kill -9 processID
+1. If you want to use sample input video/audio files then install git-lfs first (git or manual download will not work).
+1. Setup jitsi-meet server-side components.
+1. Using a browser open the jitsi-meet app and create a “room”.
+1. When running the jitsi-hammer.sh script for the first time you will most likely get a Maven dependency issue. Run **mvn compile exec:java** before starting the script (this will fail but will fetch the needed dependencies).
+1. Run hammer script with a command similar to : ./jitsi-hammer.sh -u https://MY_JITSI_WEB_SERVER_IP/http-bind/ -room MY_ROOM_NAME -length 120 -audiortpdump ./resources/badger-audio.rtpdump -videortpdump ./resources/badger-video.rtpdump –summarystats
+1. Most likely there will be WARNINGS about corrupted .pom files, org.jitsi.impl.neomedia.codec.FFmpeg problems etc. Ignore them - the hammer should work anyway. 
+1. Be patient - it takes some time for the hammer to start sending vidoe/audio. The hammer participants should show-up in a room created with browser, and the sample audio/video file should begin playing. The video will not appear full-screen (only in the icons) which is normal behavior. 
+1. After the specified amount of time (-length argument) the hammer will try to exit, however it may be that you will have to kill the processes created forcefully.
 
 
 ## How to use
